@@ -1,0 +1,27 @@
+.statistics{
+  display: flex;
+  flex-direction: column;
+  float: right;
+  min-width: 150px;
+  align-items: center;
+  padding: 25px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(36, 36, 37);
+}
+.statistics h1, p {
+  margin: 5px;
+}
+.round-container{
+  padding: 25px 25px;
+  color: rgb(36, 36, 37);
+  width: 500px;
+}
+.statistics-details{
+  display: flexbox;
+  flex-direction: column;
+  border-top: hsla(60, 100%, 97%, 0.363) 1px solid;
+  margin-top: 10px;
+}
+.statistics-details h3{
+  margin: 15px 0px 5px 0px;
+}

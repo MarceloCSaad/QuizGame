@@ -1,0 +1,16 @@
+body{
+  background-color: rgb(107, 95, 218);
+}
+.App {
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.content-wrap{
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  overflow: hidden;
+}

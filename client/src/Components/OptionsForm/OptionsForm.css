@@ -1,0 +1,27 @@
+.settings{
+  float: right;
+  min-width: 150px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(36, 36, 37);
+}
+
+.lobby-container{
+  padding: 25px;
+  color: rgb(36, 36, 37);
+  width: 500px;
+}
+
+.option-form {
+  display: flex;
+}
+
+.difficulty-wraper{
+  padding: 10px;
+}
+.difficulty-wraper div{
+  padding: 5px;
+}
