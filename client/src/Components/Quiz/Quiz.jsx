@@ -31,9 +31,10 @@ export default function Quiz (props) {
 
     axios.get('http://localhost:8000/validate', {params: {answer}} )
     .then( res => {
+      // CHANGE HERE !!!
       window.alert(res.data)
-        setRoundHistory ( [ ...roundHistory, {...round, playerAnswer:answer, correct: res.data }] )
-        setRound(null)
+      setRoundHistory ( [ ...roundHistory, {...round, playerAnswer:answer, correct: res.data }] )
+      setRound(null)
     })
     .catch((e) => console.log(e))
   }
