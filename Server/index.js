@@ -60,7 +60,10 @@ app.get('/getNewRound', ( req, res ) => {
 app.get('/validate', ( req, res ) => {
   console.log("Frontend needs to '/validate'", req.query.answer)
 
-  res.send( (req.query.answer === currentAnswer) ?true :false )
+  res.send( (req.query.answer === currentAnswer)
+    ?{correctAnswer: currentAnswer}
+    :{correctAnswer: currentAnswer}
+  )
 })
 
 app.listen(8000, () => { console.log("Server running on port 8000") })

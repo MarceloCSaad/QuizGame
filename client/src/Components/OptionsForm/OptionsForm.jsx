@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Button from '../Button/Button'
+import DisplayImage from '../DisplayImage/DisplayImage.jsx'
 import './OptionsForm.css'
 
 export default function OptionsForm (props) {
@@ -29,6 +30,9 @@ export default function OptionsForm (props) {
     <>
       <form className="option-form" onSubmit={props.handleSubmit}>
         <div className="lobby-container">
+          {
+            <DisplayImage src={tempOptions.difficulty} />
+          }
           <Button flavor="NEW QUIZ" handleClick={startGame}/>
         </div>
 
