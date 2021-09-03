@@ -47,7 +47,7 @@ function frontendFormatting (obj) {
 app.get('/getNewRound', ( req, res ) => {
   console.log("Gotta '/getNewRound' request")
 
-  const promise = getNewRound(req.query.difficulty) //will get a promised back from the async function
+  const promise = getNewRound(req.query.difficulty || "hard") //will get a promised back from the async function
 
   Promise.all( [promise] ) //when all promises are fulfilled, then do something
   .then((results) => {
