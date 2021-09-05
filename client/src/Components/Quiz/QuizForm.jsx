@@ -21,7 +21,7 @@ export default function QuizForm (props) {
         <div className="choices-wrapper">
           {renderInputs()}
         </div>
-        <Button flavor="submit"/>
+        <Button flavor="submit" timer={5}/>
       </form>
     </>
   )

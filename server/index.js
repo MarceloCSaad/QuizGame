@@ -59,8 +59,11 @@ app.get('/getNewRound', ( req, res ) => {
 
 app.get('/validate', ( req, res ) => {
   console.log("Frontend needs to '/validate'", req.query.answer)
-
-  res.send( (req.query.answer === currentAnswer) ?true :false )
+  // TODO: reduntant for now, will add logic to sync back and frontend
+  res.send( (req.query.answer === currentAnswer)
+    ?{correctAnswer: currentAnswer}
+    :{correctAnswer: currentAnswer}
+  )
 })
 
 app.listen(8000, () => { console.log("Server running on port 8000") })

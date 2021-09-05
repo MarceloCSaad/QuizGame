@@ -1,45 +1,41 @@
 import React, {useState, useEffect, useMemo} from "react";
 import QuizForm from './QuizForm.jsx'
-import Button from "../Button/Button.jsx";
+import Button from "../Button/Button.jsx"
 import "./Quiz.css"
 import axios from 'axios'
-
+import NextRound from "./NextRound.jsx"
 
 export default function Quiz (props) {
   const gameOptions = props.gameOptions
+
   const [ roundHistory, setRoundHistory ] = useState( [] )
   const [ round, setRound ] = useState(null)
+
   const points = useMemo( () => {
-    return roundHistory.reduce( (tot, ele) => (ele.correct) ?tot+1 :tot , 0)
+    return roundHistory.reduce( (tot, ele) => (ele.playerAnswer === ele.correctAnswer) ?tot+1 :tot , 0)
   }, [roundHistory])
   const totalRounds = useMemo( () => roundHistory.length, [roundHistory])
   const accuracy = useMemo( () => (totalRounds > 0) ?Math.round(100*points/totalRounds) :0, [roundHistory])
   const quizEnded = useMemo( () => (roundHistory.length >= gameOptions.size), [roundHistory])
-  
+  const isRoundAnswered = useMemo( () => (round && "correctAnswer" in round), [round]) 
 
 
   const handleValidateAnswer = (event) => {
     let answer = event.target.choices.value
     event.preventDefault()
-    console.log( "need to validate:", event.target.choices.value )
 
     if (event.target.choices.value === "") {
-      window.alert("Please select an option")
       console.log("No option was selected. Failed validation.")
       return
     }
 
     axios.get('http://localhost:8000/validate', {params: {answer}} )
     .then( res => {
-      // CHANGE HERE !!!
-      window.alert(res.data)
-      setRoundHistory ( [ ...roundHistory, {...round, playerAnswer:answer, correct: res.data }] )
-      setRound(null)
+      setRound ({...round, playerAnswer:answer, correctAnswer: res.data.correctAnswer })
     })
     .catch((e) => console.log(e))
   }
 
-  // Setting handlers:
   const getNewRoundData = () => {
     console.log("Getting new Round data from backend. Please wait....")
     axios.get('http://localhost:8000/getNewRound' ,{params: {difficulty: gameOptions.difficulty}})
@@ -52,6 +48,7 @@ export default function Quiz (props) {
 
   useEffect( () => { if ( round === null ) getNewRoundData() }, [round])
 
+
   return (
     <>
       <div className="round-container">
@@ -62,7 +59,9 @@ export default function Quiz (props) {
               <Button flavor="continue" handleClick={ () => {props.setGameOptions(null)} }/>
             </div>
           : ( round !== null )
-            ? <QuizForm round={round} handleSubmit={handleValidateAnswer} />
+            ? (isRoundAnswered)
+              ? <NextRound round={round} setRound={setRound} roundHistory={roundHistory} setRoundHistory={setRoundHistory}/>
+              : <QuizForm round={round} handleSubmit={handleValidateAnswer} />
             : <p>loading...</p>
         }
       </div>
